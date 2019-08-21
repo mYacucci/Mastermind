@@ -1,0 +1,150 @@
+﻿using System;
+using System.Text;
+using System.IO;
+
+namespace Mastermind
+{
+    class Program
+    {
+        /*
+         Create a C# console application that is a simple version of Mastermind.  
+         The randomly generated answer should be four (4) digits in length, with each digit between the numbers 1 and 6.
+         After the player enters a combination, 
+         a minus (-) sign should be printed for every digit that is correct but in the wrong position, and 
+         a plus (+) sign should be printed for every digit that is both correct and in the correct position.  
+         Nothing should be printed for incorrect digits.  
+         The player has ten (10) attempts to guess the number correctly before receiving a message that they have lost. 
+         */
+
+        //Start of project: 9:55PM 8/20
+
+        static void Main(string[] args)
+        {
+            createNewSolution("0000");
+            while (1 == 1)
+            { menuMethod(); }
+        }
+
+        static void menuMethod()
+        {
+            Console.WriteLine("Welcome to Mastermind. Please type in your selection from the menu below:");
+            Console.WriteLine("1 - Play" +
+                            "\n2 - Instructions" +
+                            "\n3 - Change Solution" +
+                            "\n4 - Quit");
+            char selection = Console.ReadKey().KeyChar;
+            Console.WriteLine("\n");
+            switch (selection)
+            {
+                case '1':
+                    {
+                        //playGame(); 
+                        break;
+                    }
+                case '2':
+                    {
+                        //displayInstructions();
+                        break;
+                    }
+                case '3':
+                    {
+                        //prepSolution(); 
+                        break;
+                    }
+                case '4':
+                    {
+                        Environment.Exit(0); //exits/closes this program.
+                        break; //included so that compiler doesn't think you're stuck here
+                    }
+                default:
+                    {
+                        Console.WriteLine("Invalid Keypress. You can only select from the options available in the menu");
+                        break;
+                    }
+            }
+        }
+
+        /*
+         prepSolution method
+         It can be used to have a user set solution, or re-randomize the solution
+        */
+        static char[] prepSolution()
+        {
+            //Start with finding out if we need to create a new random solution, or use a user-made one.
+            Console.WriteLine("Please press 1 if you want to randomize a new solution, or 2 if input your own.");
+            char choice = Console.ReadKey().KeyChar;
+            string numbers = "";
+            if (choice.Equals('1'))
+            {
+                numbers = "0000";
+                return createNewSolution(numbers).ToCharArray();
+            }
+            else if (choice.Equals('2'))
+            {
+                numbers = getValidInput();
+                return createNewSolution(numbers).ToCharArray();
+            }
+            else
+            {
+                //invalid input
+
+            }
+            return new char[4];
+
+        }
+        static string createNewSolution(string numbers)
+        {
+            //The randomly generated answer should be four (4) digits in length, with each digit between the numbers 1 and 6.
+            string createRandomSolution = "0000";
+            Console.Out.WriteLine(numbers);
+            Console.Out.WriteLine(createRandomSolution);
+            Char[] solutionArr = new Char[4];
+            string solutionString = "";
+            if (numbers.Equals(createRandomSolution))
+            {
+                //if Input solution for method is the same as the create random check string, then a random solution is created.
+                Random soluRandom = new Random();
+
+                for (int i = 0; i < 4; i++)
+                {
+                    //using Random.Next method allows random generation between min and max. max must always be +1 to desired number.
+                    solutionString += soluRandom.Next(1, 7);
+                    Console.Out.WriteLine(solutionString);
+                }
+            }
+            else
+            {
+                //This should be accessed only when a user-input solution has been given.
+                solutionString = numbers;
+            }
+            //now that the solution has been created, return it to the program for use.
+            return solutionString;
+        }
+
+        static string getValidInput()
+        {
+            string newSolution = "";
+            bool valid = false;
+            do
+            {
+                Console.WriteLine("Please type in 4 digits between and including 1 through 6. " +
+                    "\nThis will be the new solution for use in the program.");
+                string inputvalue = Console.ReadLine();
+
+                if (inputvalue.Length == 4)
+                {
+                    Console.WriteLine(inputvalue);
+                    Console.WriteLine("Length = 4");
+                }
+                else
+                {
+                    Console.WriteLine("Length too long.: " + inputvalue.Length);
+                }
+
+            }
+            while (valid == false);
+
+            return newSolution;
+        }
+    }
+}
