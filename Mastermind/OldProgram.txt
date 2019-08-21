@@ -1,4 +1,10 @@
-﻿using System;
+/*
+    Initial porject/program file. I was going for a menu system with a couple options, to make it a complete game.
+    I decided partway through that I should stick with only what I was requested to do so that I don't spend an excessive amount of time
+    There is a lot of stuff set up but not created/implemented, so it can definitely be expanded.
+*/
+
+using System;
 using System.Text;
 using System.IO;
 
